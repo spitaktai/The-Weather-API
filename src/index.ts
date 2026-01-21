@@ -23,11 +23,24 @@ app.get('/weather', (req, res) => {
     });
   }
   
-  // Simulated data
+  // Simulated data with random conditions
+  const conditions = ['Sunny', 'Cloudy', 'Rainy'];
+  const randomCondition = conditions[Math.floor(Math.random() * conditions.length)];
+  
+  // Temperature ranges based on condition
+  let temp: number;
+  if (randomCondition === 'Sunny') {
+    temp = Math.floor(Math.random() * 8) + 28; // 28-35°C
+  } else if (randomCondition === 'Cloudy') {
+    temp = Math.floor(Math.random() * 7) + 22; // 22-28°C
+  } else { // Rainy
+    temp = Math.floor(Math.random() * 8) + 18; // 18-25°C
+  }
+  
   res.json({
     city: cityCapitalized,
-    temp: Math.floor(Math.random() * 15) + 20 + "°C",
-    condition: "Sunny",
+    temp: temp + "°C",
+    condition: randomCondition,
     timestamp: new Date().toISOString()
   });
 });
